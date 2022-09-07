@@ -106,21 +106,49 @@ class D {
     }
     return dateStr
   }
+
+  when() {
+    const today = new Date()
+    const diff = this._date - today
+
+    if (diff < 0) {
+      return 'this day already passed!'
+    }
+
+    if (today.month === this.month && today.year === this.year && today.day === this.day) {
+      return 'today'
+    } 
+
+    let days = diff / 1000 / 60 / 60 / 24
+    let months = days / 30
+    if (days < 30) {
+      return `${Math.floor(days)} days from now`
+    } else if (months < 12) {
+      return `${Math.floor(months)} months from now`
+    } else {
+      return Math.floor(months/12) > 1 ? `${Math.floor(months/12)} years from now` : `1 year from now`
+    }
+  }
 }
 
-const date = new D()
-console.log(date.year)
-console.log(date.yr)
-date.year = 1975
-console.log(date.yr)
-console.log(date.month)
-console.log(date.mon)
-console.log(date.day)
-console.log(date.dy)
-console.log(date.hours, date.mins, date.secs)
-// console.log(date.format('M/d/y'))
-// console.log(date.format('m # y'))
-const date2 = new D('jan 3 2003')
-date2.year = 2001
-console.log('Hello', date.year, date.yr)
-console.log(date2.format('Y-M-D h:I:S'))
+
+
+// const date = new D()
+// console.log(date.year)
+// console.log(date.yr)
+// date.year = 1975
+// console.log(date.yr)
+// console.log(date.month)
+// console.log(date.mon)
+// console.log(date.day)
+// console.log(date.dy)
+// console.log(date.hours, date.mins, date.secs)
+// // console.log(date.format('M/d/y'))
+// // console.log(date.format('m # y'))
+// const date2 = new D('jan 3 2003')
+// date2.year = 2024
+// console.log('Hello', date.year, date.yr)
+// console.log(date2.format('Y-M-D h:I:S'))
+// console.log(date2.when())
+
+module.exports.D = D
