@@ -70,22 +70,40 @@ class D {
       's': this.secs,
     }
 
+    const suffixes = {
+      1: 'st', 
+      21: 'st', 
+      31: 'st', 
+      2: 'nd', 
+      22: 'nd', 
+      3: 'rd', 
+      23: 'rd'
+    }
+
     for (let i = 0; i < mask.length; i += 1) {
       let newStr = mask[i] in dateComponents ? dateComponents[mask[i]] : mask[i]
-      console.log(mask[i], newStr)
       switch(mask[i]) {
         case 'D':
           newStr = this.date < 10 ? `0${this.date}` : this.date
+          break;
         case 'H':
           newStr = this.hours < 10 ? `0${this.hours}` : this.hours
+          break;
         case 'I':
           newStr = this.mins < 10 ? `0${this.mins}` : this.mins
+          break;
         case 'S': 
           newStr = this.secs < 10 ? `0${this.secs}` : this.secs
+          break;
+        case '#':
+          let suffix = this.date in suffixes ? suffixes[this.date] : 'th'
+          newStr = `${this.date}${suffix}`
+          break;
+        default: 
+          // console.log('default', newStr)
       }
       dateStr += newStr;
     }
-
     return dateStr
   }
 }
@@ -100,4 +118,9 @@ console.log(date.mon)
 console.log(date.day)
 console.log(date.dy)
 console.log(date.hours, date.mins, date.secs)
-console.log(date.format('M/d/y'))
+// console.log(date.format('M/d/y'))
+// console.log(date.format('m # y'))
+const date2 = new D('jan 3 2003')
+date2.year = 2001
+console.log('Hello', date.year, date.yr)
+console.log(date2.format('Y-M-D h:I:S'))
